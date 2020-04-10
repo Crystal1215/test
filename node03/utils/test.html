@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      animation:mymove 5s infinite;
+      @keyframes mymove {from {top:0px;}to {top:200px;}}
+
+      body {
+            display: flex;
+        }
+        .left {
+        background-color: rebeccapurple;
+        height: 200px;
+        flex: 1;
+        }
+        .right {
+        background-color: red;
+        height: 200px;
+        width: 100px;
+        }
+
+        #euro {
+width: 150px;
+height: 150px;
+margin-left: -75px;
+margin-top: -75px;
+position: absolute;
+top: 50%;
+left: 50%;
+transform-style: preserve-3d;
+animation: spin 2.5s linear infinite;
+}
+.back {
+background-image: url("/a.png");
+width: 150px;
+height: 150px;
+}
+.middle {
+background-image: url("/a.png");
+width: 150px;
+height: 150px;
+transform: translateZ(1px);
+position: absolute;
+top: 0;
+}
+.front {
+background-image: url("/a.png");
+height: 150px;
+position: absolute;
+top: 0;
+transform: translateZ(10px);
+width: 150px;
+}
+@keyframes spin {
+0% {
+transform: rotateY(0deg);
+}
+100% {
+transform: rotateY(360deg);
+}
+}
+    </style>
+</head>
+<body>
+    <div id="euro">
+        <img src="./a.png" style="width: 100px;height: 100px;" alt="">
+        <!-- <div class="back">aaaaa</div>
+        <div class="middle">bbbbbbbbbb</div>
+        <div class="front">ccccccc</div> -->
+
+    </div>
+  <div id="J_container">
+    <div id="div2">
+        <div id="div1">点我</div>        
+    </div>
+</div>
+    <script>
+      var template = function(str) {
+    var replace = {};
+    var result;
+    var newStr = str;
+    var re = new RegExp('\\<\\%\\=\\w+\\%\\>','g');
+    while((result = re.exec(str)) !== null){
+        var _re = new RegExp('\\w+','g');
+        var item = result[0].match(_re)[0];
+        replace[item] = {};
+        replace[item].origin = result[0];
+    }
+    return function(obj) {
+        for(var i in obj){
+            if(replace[i]){
+                str = str.replace(replace[i].origin, obj[i]);
+            }
+        }
+        return str;
+    }
+}
+var a=template('hello <%= user %>');
+console.log(a({'user':'aaaa'}))
+      class EventEmitter {
+            /* 在此处填写实现 */
+            constructor(){
+                this.eventlist = {};
+                this.onceEventlist = {};
+            }
+            fire(obj){
+                const { type, value } = obj;
+                let _run = 1;
+                let _find = function(list){
+                    for(let i in list){
+                        if(i === type){
+                            for(let j in list[i]){
+                                list[i][j](value);
+                                if( _run ){
+                                    delete list[i];
+                                }
+                            }
+                        }
+                    }
+                    _run = 0;
+                };
+                _find(this.onceEventlist);
+                _find(this.eventlist);
+            }
+            on(event, fn){
+                this.eventlist[event] = {};
+                this.eventlist[event][fn.name] = fn;
+            }
+            off(event, fn){
+                if(this.eventlist[event]){
+                    delete this.eventlist[event][fn.name];
+                }
+            }
+            once(event, fn){
+                this.onceEventlist[event] = {};
+                this.onceEventlist[event][fn.name] = fn;
+            }
+        }
+
+        const emitter = new EventEmitter();
+
+        const handler = function(evt) {
+            console.log(1, evt);
+        };
+        emitter.on('foo', handler);
+
+        emitter.once('foo', function(evt) {
+            console.log(2, evt);
+        });
+
+        emitter.fire({ type: 'foo', value: 'hello' });
+        emitter.fire({ type: 'foo', value: 'world' });
+        emitter.off('foo', handler);
+        emitter.fire({ type: 'foo', value: 'test' });
+
+    var div1 = document.getElementById('div1');
+    var div2 = document.getElementById('div2');
+    div1.addEventListener('click', () => {console.log('a')}, true);
+    div2.addEventListener('click', () => {console.log('b')});
+    // div1.addEventListener('click', () => {console.log('c')}, false);
+    // div2.addEventListener('click', () => {console.log('d')}, true);
+</script>
+  <p>第一个</p>
+<p>第二个</p>
+<p>第三个</p>
+<p>第四个</p>
+<p>第五个</p>
+  <ul>
+    <li>一<button>删除一</button></li>
+    <li>二<button>删除二</button></li>
+    <li>三<button>删除三</button></li>
+    <li>四<button>删除四</button></li>
+    <li>五<button>删除五</button></li>
+    <li>六<button>删除六</button></li>
+</ul>
+  <!-- <div class="left"></div > <div class = "right" > </div> -->
+    <!-- <div id="box1" >
+        <div id="box2" onclick="getData">
+          content
+        </div>
+      </div>
+      <a href="#">第一个链接</a>
+<a href='#'>第二个链接</a>
+
+<input onclick="add_jd()" type="button" value="点击我吧"></input>
+  <p id="first" onclick="clickme(this)">first 1</p>
+  <p id="second" onclick="clickme(this)">second 2</p>
+  <p id="third" onclick="clickme(this)">third 3</p>
+  <p id="fourth" onclick="clickme(this)">fourth 4</p>
+  <p id="fifth" onclick="clickme(this)">fifth 5</p>
+  <p id="sixth" onclick="clickme(this)">sixth 6</p> -->
+
+  <script type="text/javascript">
+  var pObj = document.getElementsByTagName("p");
+
+for(var i = 0; i < pObj.length; i++){
+
+    pObj[i].onclick = (function(){
+
+        return function(){
+
+            this.style.background = "#eee";
+
+        }
+
+    })(i);
+
+};
+
+Array.prototype.quickSort = function(){
+
+if(this.length <= 1){
+
+    return this;
+
+}else{
+
+    var leftArray = [],
+
+        rightArray = [],
+
+        num = Math.floor((this.length)/2),
+
+        middleValue = this.splice(num,1);
+
+    for(var i = 0; i < this.length; i++){
+
+        if(this[i] > middleValue){
+
+            leftArray.push(this[i]);
+
+        }else{
+
+            rightArray.push(this[i]);
+
+        }
+
+    }
+
+    return leftArray.quickSort().concat(middleValue,rightArray.quickSort());
+
+}
+
+}
+Array.prototype.unique1 = function(){
+
+var newArray = [this[0]];//结果数组
+
+for(var i = 1; i < this.length; i++){
+
+    if(newArray.indexOf(this[i]) == -1){
+
+        newArray.push(this[i]);
+
+    }
+
+}
+
+return newArray;
+
+}
+var newArray = [1,2,1,9,10,3,4,3,5,2,4,6,5,7,4,8,7,3,5,3];
+
+var nowArray = newArray.quickSort().unique1();
+
+console.log(nowArray);
+    // window.onload = function(){
+    
+    //     var oUl = document.getElementsByTagName('ul')[0];
+    
+    //     oUl.onclick = function(ev){
+    
+    //         var ev = ev || window.event;
+    
+    //         var target = ev.target || ev.srcElement;
+    
+    //         if(target.tagName.toLowerCase() == 'button'){
+    
+    //             var tr = target.parentNode;
+    
+    //             tr.parentNode.removeChild(tr);
+    
+    //         }
+    
+    //     }
+    
+    // }
+    </script>
+<!-- <script>
+	window.onload=function(){
+		var l=document.links.length
+		for(var i=0;i<l;i++){
+			document.links[i].onclick=(function(x){
+				return function(){
+					alert(x+1);
+				}
+			})(i);
+		}
+	}
+</script> -->
+<script type="text/javascript">
+	function clickme(x){
+		var dom=document.getElementsByTagName("p");
+		//该点击的节点
+		for(var i=0;i<dom.length;i++){
+			if(x==dom[i]){
+				//alert(x.id);
+				alert(i+1);
+				break;
+			}
+		}
+	}
+	function add_jd(){
+		var id_str=document.getElementsByTagName("p").length+1;
+		var para=childpoint=document.createElement("p");	
+		para.id="aa".concat(id_str);
+		para.innerHTML=para.id;
+		para.onclick=function (){
+			var dom=document.getElementsByTagName("p");
+			for(var i=0;i<dom.length;i++){
+				if(this==dom[i]){
+					//alert(this.id);
+					alert(i+1);
+					break;
+				}
+			}
+ 
+		}
+		document.getElementsByTagName("body")[0].appendChild(para);
+		
+	}
+  </script>
+      <script>
+        function getData(){
+          console.log('aaa')
+          jsonp('https://interface.sina.cn/news/wap/fymap2020_data.d.json?_=1580892522427',(err,data)=>{
+            if(!err){
+              console.log(JSON.stringify(data))
+              let list=data.data.list.map(item=>({name:item.name,value:item.value}))
+              console.log(list)
+            }
+          })
+        }
+    //   const $ = document.querySelector.bind(document);
+    //   const box1 = $('#box1');
+    //   const box2 = $('#box2');
+    //   box1.addEventListener('click', () => {
+    //     console.log('box1 true');
+    //   }, true);
+    //   box1.addEventListener('click', () => {
+    //     console.log('box1 false');
+    //   }, false);
+    //   box2.addEventListener('click', () => {
+    //     console.log('box2 true');
+    //   }, true);
+    //   box2.addEventListener('click', () => {
+    //     console.log('box2 false');
+    //   }, false);
+//     var person = {
+//   age: 18,
+//   getAge: function() {
+//     return this.age;
+//   }
+// };
+// var getAge = person.getAge;
+// console.log(getAge)
+      </script>
+</body>
+</html>
